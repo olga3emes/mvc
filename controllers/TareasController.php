@@ -10,6 +10,14 @@ class TareasController{
 
     }
 
+    public function find($id){
+        $tarea= Tarea::find($id);
+
+        echo json_encode($tarea);
+    }
+
+    
+
     public function create(){
 
         echo "Create";

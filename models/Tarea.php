@@ -15,4 +15,14 @@ class Tarea extends DB{
         return $prepare->fetchAll(PDO::FETCH_CLASS,Tarea::class);
     }
 
+    public static function find($id){
+
+        $db = new DB();
+        $prepare = $db->prepare("select * from tareas where id=:id");
+        $prepare->execute([":id"=>$id]);
+
+        return $prepare->fetchObject(Tarea::class);
+
+    }
+
 }
