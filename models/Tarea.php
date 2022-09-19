@@ -37,6 +37,12 @@ class Tarea extends DB{
             $prepare->execute($params);
         }
 
+    
+        public function remove(){
+            $prepare = $this->prepare("delete from tareas where id=:id");
+            $prepare->execute([":id"=>$this->id]);
+        }
+
 
 
 }

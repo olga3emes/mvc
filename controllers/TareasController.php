@@ -36,6 +36,17 @@ class TareasController{
         }
     }
 
+    public function delete($id){
+        $tarea= Tarea::find($id);
+        if($tarea){
+            $tarea->remove();
+
+            echo "La tarea ha sido eliminada";
+        }else{
+            echo "La tarea no existe";
+        }
+
+    }
 
     //Index o Read - Listar los objetos
     //Create - Crear el objeto
