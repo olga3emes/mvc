@@ -25,4 +25,18 @@ class Tarea extends DB{
 
     }
 
+    public function save(){
+
+        $params = [":nombre"=>$this->nombre, ":fecha"=>$this->fecha];
+        if(empty($this->id)){
+            $prepare = $this->prepare("Insert into tareas (nombre, fecha) values (:nombre,:fecha)");
+            $prepare->execute($params);
+        }else
+            $params[":id"]=$this->id;    
+            $prepare = $this->prepare("update tareas set nombre=:nombre, fecha=:fecha where id=:id");
+            $prepare->execute($params);
+        }
+
+
+
 }

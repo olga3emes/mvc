@@ -5,7 +5,6 @@ class TareasController{
     public function index(){
         
        $tareas= Tarea::all();
-
        echo json_encode($tareas);
 
     }
@@ -16,15 +15,25 @@ class TareasController{
         echo json_encode($tarea);
     }
 
-    
-
     public function create(){
 
-        echo "Create";
+        $tarea= new Tarea();
+        $tarea->nombre="Nombre tarea";
+        $tarea->fecha="2022-03-02";
+        $tarea->save();
+        echo "La tarea ha sido creada" . json_encode($tarea);
     }
 
-    public function update(){
-        echo "Actualizar";
+    public function update($id){
+        $tarea= Tarea::find($id);
+        if($tarea){
+        $tarea->nombre="Nombre tarea actualizada";
+        $tarea->fecha="2022-04-09";
+        $tarea->save();
+        echo "La tarea ha sido actualizada";
+        }else{
+            echo "La tarea no existe";
+        }
     }
 
 
