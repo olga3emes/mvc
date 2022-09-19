@@ -2,10 +2,11 @@
 include_once "models/Tareas.php";
 class TareasController{
 
-    public function index(){
-        
+    
+    public function index(){   
        $tareas= Tarea::all();
-       echo json_encode($tareas);
+       view("tareas.index", ["tareas"=>$tareas]);
+
 
     }
 
