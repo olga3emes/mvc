@@ -26,7 +26,7 @@
         <div class="row"></div>
             <h1 class="m-3 text-center">Listado de tareas</h1>
             <div class="text-center m-3">
-                <button type="button" id="crear" class="btn btn-outline-dark " data-bs-toggle="modal"
+                <button type="button" id="crear" class="btn btn-outline-dark " onclick="crearModalCrear()" data-bs-toggle="modal"
                     data-bs-target="#crearTarea"><i class="bi bi-plus-square-fill"></i> Nueva Tarea</button>
             </div>
 
@@ -60,22 +60,23 @@
                                             class="bi bi-eye-fill"></i></button>
                                     <button type="button" class="btn btn-secondary btn-sm btn-editar"><i
                                             class="bi bi-pencil-fill"></i></button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#eliminarTarea" class="btn btn-dark btn-sm"><i
+                                    <button type="button" onclick='crearModalBorrado("<?php echo $t->id; ?>")' data-bs-toggle="modal" data-bs-target="#eliminarTarea" class="btn btn-dark btn-sm"><i
                                             class="bi bi-trash3-fill"></i></button>
                                 </div>
                             </td>
-                        <?php include("modalEliminarTarea.php"); ?>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
-
-
+            
+            
         </div>
     </div>
-
-   <?php include("modalCrearTarea.php"); ?>
+    
+    <div id="mdEliminar"></div>
+    <div id="mdCrear"></div>
+    
 
   
 
