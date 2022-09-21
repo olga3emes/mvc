@@ -1,10 +1,7 @@
-<?php 
-
+<?php
 include_once "utils/defaults.php";
 include_once "models/DB.php";
 include_once "models/Tarea.php";
-include_once "models/Avion.php";
-
 
 $controller=$_GET['controller'];
 $action = $_GET['action'];

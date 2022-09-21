@@ -1,57 +1,77 @@
-<?php 
-include_once "models/Tareas.php";
-class TareasController{
+<?php
+include_once "models/Tarea.php";
 
-    
-    public function index(){   
-       $tareas= Tarea::all();
-       view("tareas.index", ["tareas"=>$tareas]);
-
+class TareasController
+{   
+    public function index()
+    {
+        $tareas = Tarea::all();
+        view("tareas.index", ["tareas" => $tareas]);
 
     }
 
-    public function find($id){
-        $tarea= Tarea::find($id);
-
+    public function find($id)
+    {
+        $tarea = Tarea::find($id);
         echo json_encode($tarea);
     }
 
-    public function create(){
-
-        $tarea= new Tarea();
-        $tarea->nombre="Nombre tarea";
-        $tarea->fecha="2022-03-02";
+    public function create()
+    {
+        
+        $cargaUtil = json_decode(file_get_contents("php://input"));
+        if (!$cargaUtil) {
+            http_response_code(500);
+            exit;
+        }
+        $tarea = new Tarea();
+        $tarea->nombre = $cargaUtil->nombre;
+        $tarea->fecha = $cargaUtil->fecha;
         $tarea->save();
-        echo "La tarea ha sido creada" . json_encode($tarea);
+        $respuesta = $tarea;
+        echo json_encode($respuesta);
     }
 
-    public function update($id){
-        $tarea= Tarea::find($id);
-        if($tarea){
-        $tarea->nombre="Nombre tarea actualizada";
-        $tarea->fecha="2022-04-09";
-        $tarea->save();
-        echo "La tarea ha sido actualizada";
-        }else{
+    public function update($id)
+    {
+        $tarea = Tarea::find($id);
+        if ($tarea) {
+            $tarea->nombre = "Nombre tarea actualizar";
+            $tarea->fecha = "2022-04-09";
+            $tarea->save();
+            echo "La tarea ha sido actualizada";
+        }
+        else {
             echo "La tarea no existe";
         }
     }
 
-    public function delete($id){
-        $tarea= Tarea::find($id);
-        if($tarea){
+    public function delete($id)
+    {
+        $cargaUtil = json_decode(file_get_contents("php://input"));
+        if (!$cargaUtil) {
+            http_response_code(500);
+            exit;
+        }
+        $tarea = Tarea::find($id);
+        if ($tarea) {
             $tarea->remove();
-
-            echo "La tarea ha sido eliminada";
-        }else{
-            echo "La tarea no existe";
+            $respuesta="La tarea ha sido eliminada";
+            echo json_encode($respuesta);
+        }
+        else {
+            http_response_code(404);
+            exit;
         }
 
     }
 
-    //Index o Read - Listar los objetos
-    //Create - Crear el objeto
-    //Update - Modificar un objeto existente
-    //Delete - Eliminar un objeto
-    //Find - Buscar un objeto concreto usando su id
+
+//Index o Read - Listar
+//Show o Find - Mostrar un elemento según su id
+//Create - Crear un elemento nuevo
+//Update - Editar un elemento (id)
+//Delete - Eliminar un elemento (id)
 }
+
+?>

@@ -5,34 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tareas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
-        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <!-- Propios -->
+
+    <script defer src="views/js/crearTarea.js"></script>
+    <script defer src="views/js/borrarTarea.js"></script>
 </head>
 
 <body>
-    <h1>Tareas</h1>
 
     <div class="container">
-        <div class="row">
+
+        <div class="row"></div>
+            <h1 class="m-3 text-center">Listado de tareas</h1>
+            <div class="text-center m-3">
+                <button type="button" id="crear" class="btn btn-outline-dark " data-bs-toggle="modal"
+                    data-bs-target="#crearTarea"><i class="bi bi-plus-square-fill"></i> Nueva Tarea</button>
+            </div>
+
+             <div id="alerta" class="d-grid justify-content-center m-2"></div>
+
             <div class="table-responsive">
-                <table class="table table-primary">
+                <table id="table" class="table table-primary">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Fecha</th>
+                            <th>Operaciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-
+                    <tbody id="bodyTabla">
                         <?php foreach ($tareas as $t): ?>
-                        <tr class="">
+                        <tr id="tr<?php echo $t->id; ?>" class="">
                             <td>
                                 <?php echo $t->id; ?>
                             </td>
@@ -40,24 +52,33 @@
                                 <?php echo $t->nombre; ?>
                             </td>
                             <td>
-                                <?php echo $t->fecha; ?>
+                                <?php echo date_format(date_create($t->fecha), "d/m/Y"); ?>
                             </td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <button type="button" class="btn btn-light btn-sm"><i
+                                            class="bi bi-eye-fill"></i></button>
+                                    <button type="button" class="btn btn-secondary btn-sm btn-editar"><i
+                                            class="bi bi-pencil-fill"></i></button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#eliminarTarea" class="btn btn-dark btn-sm"><i
+                                            class="bi bi-trash3-fill"></i></button>
+                                </div>
+                            </td>
+                        <?php include("modalEliminarTarea.php"); ?>
                         </tr>
                         <?php endforeach; ?>
-
                     </tbody>
                 </table>
             </div>
 
 
-
         </div>
-
-
     </div>
 
+   <?php include("modalCrearTarea.php"); ?>
 
+  
 
 </body>
 
-</html>
+</html> 
