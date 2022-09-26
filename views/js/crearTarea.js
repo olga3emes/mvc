@@ -1,20 +1,7 @@
 function crearModalCrear() {
-
-  if (document.querySelector("#editarTarea")) {
-    document.querySelector("#editarTarea").remove();
-  }
-  if (document.querySelector("#borrarTarea")) {
-    document.querySelector("#borrarTarea").remove();
-
-  }
-  if (document.querySelector("#crearTarea")) {
-    document.querySelector("#crearTarea").remove();
-
-  }
-
   let modalCrear = document.createElement('div');
   modalCrear.innerHTML =
-    `<div class="modal" id="crearTarea" tabindex="-1" aria-labelledby="Crear Tarea" aria-hidden="true">
+    `<div class="modal" id="crearTarea" tabindex="-1" data-backdrop="false"> 
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
@@ -38,7 +25,7 @@ function crearModalCrear() {
               </form>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-secondary btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
               <button type="submit" id="btn-guardar" class="btn btn-primary btn-guardar">Guardar</button>
           </div>
       </div>
@@ -96,11 +83,10 @@ function crearModalCrear() {
                   <td><div class="btn-group" role="group" aria-label="Basic mixed styles example">
                   <button type="button" class="btn btn-light btn-sm"><i
                           class="bi bi-eye-fill"></i></button>
-                  <button type="button" class="btn btn-secondary btn-sm"><i
-                          class="bi bi-pencil-fill"></i></button>
+                          <button type="button" onclick='crearModalEdicion("${respuesta.id}")' data-bs-toggle="modal" data-bs-target="#editarTarea"
+                            class="btn btn-secondary btn-sm"><i class="bi bi-pencil-fill"></i></button>
                   <button type="button" onclick='crearModalBorrado("${respuesta.id}")' data-bs-toggle="modal" data-bs-target="#eliminarTarea"
-                   class="btn btn-dark btn-sm"><i
-                          class="bi bi-trash3-fill"></i></button>
+                   class="btn btn-dark btn-sm"><i class="bi bi-trash3-fill"></i></button>
               </div>
               </td> `;
         document.getElementById("table").querySelector("tbody").append(tr);
@@ -114,6 +100,9 @@ function crearModalCrear() {
       );
     }
   };
+
+
+  
 
 }
 

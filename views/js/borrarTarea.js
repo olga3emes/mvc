@@ -1,16 +1,5 @@
 function crearModalBorrado(identificador) {
-  if (document.querySelector("#editarTarea")) {
-    document.querySelector("#editarTarea").remove();
-  }
-  if (document.querySelector("#borrarTarea")) {
-    document.querySelector("#borrarTarea").remove();
-
-  }
-  if (document.querySelector("#crearTarea")) {
-    document.querySelector("#crearTarea").remove();
-
-  }
-
+  
   let modalBorrar = document.createElement('div');
   modalBorrar.innerHTML =
     `<div class="modal" id="eliminarTarea" tabindex="-1" data-backdrop="false">
@@ -24,7 +13,7 @@ function crearModalBorrado(identificador) {
         ¿Está seguro de que quiere <strong>eliminar</strong> esta tarea?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-secondary btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
         <a type="button" id="${identificador}" class="btn btn-primary btn-eliminar">Eliminar</a>
       </div>
     </div>
@@ -89,7 +78,6 @@ function crearModalBorrado(identificador) {
       );
     }
   };
-
 }
 
 

@@ -1,16 +1,13 @@
-function crearModalEdicion(identificador, nombreOld, fechaOld) {
+function crearModalEdicion(identificador) {
 
-    if(document.querySelector("#editarTarea")){
-        document.querySelector("#editarTarea").remove();
-    }
-    if( document.querySelector("#borrarTarea")){
-        document.querySelector("#borrarTarea").remove();
-        
-    }
-    if(document.querySelector("#crearTarea")){
-        document.querySelector("#crearTarea").remove();
+    
 
-    }
+    let treditar = `tr${identificador}`;
+    $fila = document.getElementById(treditar);
+    const nombreOld = $fila.childNodes[3].innerText;
+    const $fechaCambiar = $fila.childNodes[5].innerText;
+    const fechaOld = $fechaCambiar.slice(6, 10) + "-" + $fechaCambiar.slice(3, 5) + "-" + $fechaCambiar.slice(0, 2);
+
 
     let modalEditar = document.createElement('div');
     modalEditar.innerHTML =
@@ -38,7 +35,7 @@ function crearModalEdicion(identificador, nombreOld, fechaOld) {
           </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
             <a type="button" id="${identificador}" class="btn btn-primary btn-editar">Guardar </a>
           </div>
         </div>
@@ -57,7 +54,7 @@ function crearModalEdicion(identificador, nombreOld, fechaOld) {
 
     $btnEditar.onclick = async () => {
 
-      
+
         const id = $btnEditar.id;
         const $nombre = document.querySelector("#nombre");
         const $fecha = document.querySelector("#fecha");
@@ -68,8 +65,8 @@ function crearModalEdicion(identificador, nombreOld, fechaOld) {
             fecha: $fecha.value
         };
 
-        
-       const cargaJson = JSON.stringify(cargar);
+
+        const cargaJson = JSON.stringify(cargar);
 
         try {
             const respuestaRaw = await fetch(`/mvc/tareas/update/${id}`, {
@@ -95,12 +92,13 @@ function crearModalEdicion(identificador, nombreOld, fechaOld) {
                 myModalEditar.hide();
                 modalEditar.remove();
 
-                // TODO: Modificar la fila
+                // Modificar la fila
                 let treditar = `tr${id}`;
                 $fila = document.getElementById(treditar);
-                $fila.childNodes[3].innerText=respuesta.nombre;
-                $fila.childNodes[5].innerText=respuesta.fecha;
-                
+                $fila.childNodes[3].innerText = respuesta.nombre;
+                console.log(respuesta.fecha);
+                $fila.childNodes[5].innerText = (respuesta.fecha).slice(8, 10) + "/" + (respuesta.fecha).slice(5, 7) + "/" + (respuesta.fecha).slice(0, 4);
+
 
             }
         } catch (e) {
@@ -110,7 +108,7 @@ function crearModalEdicion(identificador, nombreOld, fechaOld) {
                 "El proceso de modificación de la tarea ha fallado, consulte con el administrador del sistema."
             );
         }
-       
+
     };
 
 }
