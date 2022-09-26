@@ -17,6 +17,7 @@
 
     <script defer src="views/js/crearTarea.js"></script>
     <script defer src="views/js/borrarTarea.js"></script>
+    <script defer src="views/js/editarTarea.js"></script>
 </head>
 
 <body>
@@ -58,7 +59,7 @@
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <button type="button" class="btn btn-light btn-sm"><i
                                             class="bi bi-eye-fill"></i></button>
-                                    <button type="button" class="btn btn-secondary btn-sm btn-editar"><i
+                                    <button type="button" onclick='crearModalEdicion("<?php echo $t->id; ?>","<?php echo $t->nombre; ?>","<?php echo $t->fecha; ?>")' data-bs-toggle="modal" data-bs-target="#editarTarea"  class="btn btn-secondary btn-sm"><i
                                             class="bi bi-pencil-fill"></i></button>
                                     <button type="button" onclick='crearModalBorrado("<?php echo $t->id; ?>")' data-bs-toggle="modal" data-bs-target="#eliminarTarea" class="btn btn-dark btn-sm"><i
                                             class="bi bi-trash3-fill"></i></button>
@@ -76,6 +77,7 @@
     
     <div id="mdEliminar"></div>
     <div id="mdCrear"></div>
+    <div id="mdEditar"></div>
     
 
   

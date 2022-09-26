@@ -34,15 +34,22 @@ class TareasController
 
     public function update($id)
     {
+        $cargaUtil = json_decode(file_get_contents("php://input"));
+        if (!$cargaUtil) {
+            http_response_code(500);
+            exit;
+        }
         $tarea = Tarea::find($id);
         if ($tarea) {
-            $tarea->nombre = "Nombre tarea actualizar";
-            $tarea->fecha = "2022-04-09";
+            $tarea->nombre = $cargaUtil->nombre;
+            $tarea->fecha = $cargaUtil->fecha;
             $tarea->save();
-            echo "La tarea ha sido actualizada";
+            $respuesta=$tarea;
+            echo json_encode($respuesta);     
         }
         else {
-            echo "La tarea no existe";
+            http_response_code(404);
+            exit;
         }
     }
 

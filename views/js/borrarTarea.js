@@ -1,11 +1,23 @@
-function crearModalBorrado(identificador){
-let modalBorrar = document.createElement('div');
-modalBorrar.innerHTML=
-  `<div class="modal" id="eliminarTarea" tabindex="-1" data-backdrop="false">
+function crearModalBorrado(identificador) {
+  if (document.querySelector("#editarTarea")) {
+    document.querySelector("#editarTarea").remove();
+  }
+  if (document.querySelector("#borrarTarea")) {
+    document.querySelector("#borrarTarea").remove();
+
+  }
+  if (document.querySelector("#crearTarea")) {
+    document.querySelector("#crearTarea").remove();
+
+  }
+
+  let modalBorrar = document.createElement('div');
+  modalBorrar.innerHTML =
+    `<div class="modal" id="eliminarTarea" tabindex="-1" data-backdrop="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Eliminar Tarea</h5>
+        <h5 class="modal-title">Eliminar Tarea ${identificador}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -19,64 +31,64 @@ modalBorrar.innerHTML=
   </div>
 </div>`;
 
-document.querySelector('#mdEliminar').append(modalBorrar);
-const myModalBorrar= new bootstrap.Modal('#eliminarTarea');
-myModalBorrar.show()
-console.log("modalMetido");
+  document.querySelector('#mdEliminar').append(modalBorrar);
+  const myModalBorrar = new bootstrap.Modal('#eliminarTarea');
+  myModalBorrar.show()
+  console.log("modalMetido");
 
 
-$btnBorrar = document.querySelector(".btn-eliminar");
-$alerta = document.querySelector("#alerta");
+  $btnBorrar = document.querySelector(".btn-eliminar");
+  $alerta = document.querySelector("#alerta");
 
-$btnBorrar.onclick = async () => {
+  $btnBorrar.onclick = async () => {
 
-    const id=$btnBorrar.id;
+    const id = $btnBorrar.id;
 
-  const cargar = {
-    id: id,
-  };
+    const cargar = {
+      id: id,
+    };
 
-  console.log(id);
-  const cargaJson = JSON.stringify(cargar);
+    console.log(id);
+    const cargaJson = JSON.stringify(cargar);
 
-  try {
-    const respuestaRaw = await fetch(`/mvc/tareas/delete/${id}`,{
+    try {
+      const respuestaRaw = await fetch(`/mvc/tareas/delete/${id}`, {
 
         method: "POST",
         body: cargaJson
-    }); 
+      });
 
-    const respuesta = await respuestaRaw.json();
+      const respuesta = await respuestaRaw.json();
 
-    console.log(respuesta);
+      console.log(respuesta);
 
-    if (respuesta) {
-       
-     const response = `Tarea ${id} borrada`;
-      $alerta.setHTML(
-        '<div id="alertOK" class="alert alert-success fade show"role="alert">' +
+      if (respuesta) {
+
+        const response = `Tarea ${id} borrada`;
+        $alerta.setHTML(
+          '<div id="alertOK" class="alert alert-success fade show"role="alert">' +
           response +
           ""
-      );
+        );
 
-      //Cerrar el modal
-      myModalBorrar.hide();
-      modalBorrar.remove();
-      //Quitar la fila
+        //Cerrar el modal
+        myModalBorrar.hide();
+        modalBorrar.remove();
+        //Quitar la fila
 
-      let trEliminar =`tr${id}`;
-      $fila = document.getElementById(trEliminar);
-      $fila.remove();
+        let trEliminar = `tr${id}`;
+        $fila = document.getElementById(trEliminar);
+        $fila.remove();
 
-    }
-  } catch (e) {
-    $alerta.setHTML(
-        
-      '<div id="alertOK" class="alert alert-danger  fade show"role="alert">' +
+      }
+    } catch (e) {
+      $alerta.setHTML(
+
+        '<div id="alertOK" class="alert alert-danger  fade show"role="alert">' +
         "El proceso de creación de la tarea ha fallado, consulte con el administrador del sistema."
-    );
-  }
-};
+      );
+    }
+  };
 
 }
 

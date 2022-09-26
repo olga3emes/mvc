@@ -8,8 +8,9 @@ $action = $_GET['action'];
 $id = $_GET['id'];
 
 
-if (empty($action))
+if (empty($action)){
     $action = "index";
+}    
 
 $ctrlName = $controller . "Controller";
 include "./controllers/$ctrlName.php";

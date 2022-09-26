@@ -1,7 +1,20 @@
-function crearModalCrear(){
+function crearModalCrear() {
+
+  if (document.querySelector("#editarTarea")) {
+    document.querySelector("#editarTarea").remove();
+  }
+  if (document.querySelector("#borrarTarea")) {
+    document.querySelector("#borrarTarea").remove();
+
+  }
+  if (document.querySelector("#crearTarea")) {
+    document.querySelector("#crearTarea").remove();
+
+  }
+
   let modalCrear = document.createElement('div');
-modalCrear.innerHTML= 
-  `<div class="modal" id="crearTarea" tabindex="-1" aria-labelledby="Crear Tarea" aria-hidden="true">
+  modalCrear.innerHTML =
+    `<div class="modal" id="crearTarea" tabindex="-1" aria-labelledby="Crear Tarea" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
@@ -32,54 +45,52 @@ modalCrear.innerHTML=
   </div>
 </div>`;
 
-document.querySelector('#mdCrear').append(modalCrear);
-const myModalCrear= new bootstrap.Modal('#crearTarea');
-myModalCrear.show()
+  document.querySelector('#mdCrear').append(modalCrear);
+  const myModalCrear = new bootstrap.Modal('#crearTarea');
+  myModalCrear.show()
 
 
-$nombre = document.querySelector("#nombre");
-$fecha = document.querySelector("#fecha");
+  $nombre = document.querySelector("#nombre");
+  $fecha = document.querySelector("#fecha");
 
-$btnGuardar = document.querySelector(".btn-guardar");
-$alerta = document.querySelector("#alerta");
+  $btnGuardar = document.querySelector(".btn-guardar");
+  $alerta = document.querySelector("#alerta");
 
-$btnGuardar.onclick = async () => {
-  const nombre = $nombre.value,
-    fecha = new Date($fecha.value).toISOString().slice(0, 10);
+  $btnGuardar.onclick = async () => {
+    const nombre = $nombre.value,
+      fecha = new Date($fecha.value).toISOString().slice(0, 10);
 
+    const cargar = {
+      nombre: nombre,
+      fecha: fecha,
+    };
 
+    const cargaJson = JSON.stringify(cargar);
 
-  const cargar = {
-    nombre: nombre,
-    fecha: fecha,
-  };
+    try {
+      const respuestaRaw = await fetch("/mvc/tareas/create", {
+        method: "POST",
+        body: cargaJson,
+      });
 
-  const cargaJson = JSON.stringify(cargar);
+      const respuesta = await respuestaRaw.json();
 
-  try {
-    const respuestaRaw = await fetch("/mvc/tareas/create", {
-      method: "POST",
-      body: cargaJson,
-    });
-
-    const respuesta = await respuestaRaw.json();
-
-    console.log(respuesta);
-    if (respuesta) {
-      myModalCrear.hide();
-      modalCrear.remove();
-      const response = `La tarea ${respuesta.id} se ha creado con éxito`;
-      $alerta.setHTML(
-        '<div id="alertOK" class="alert alert-success fade show"role="alert">' +
+      console.log(respuesta);
+      if (respuesta) {
+        myModalCrear.hide();
+        modalCrear.remove();
+        const response = `La tarea ${respuesta.id} se ha creado con éxito`;
+        $alerta.setHTML(
+          '<div id="alertOK" class="alert alert-success fade show"role="alert">' +
           response +
           ""
-      );
-      
-      //Hay que crear la fila en la tabla
-      let tr = document.createElement("tr");
-      tr.id= `tr${respuesta.id}`;
-      tr.setAttribute("data-id", respuesta.id);
-      tr.innerHTML = `<td>${respuesta.id}</td>
+        );
+
+        //Hay que crear la fila en la tabla
+        let tr = document.createElement("tr");
+        tr.id = `tr${respuesta.id}`;
+        tr.setAttribute("data-id", respuesta.id);
+        tr.innerHTML = `<td>${respuesta.id}</td>
                   <td>${respuesta.nombre}</td>
                   <td>${new Date(respuesta.fecha).toLocaleDateString("es-Es")}</td>
                   <td><div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -92,17 +103,17 @@ $btnGuardar.onclick = async () => {
                           class="bi bi-trash3-fill"></i></button>
               </div>
               </td> `;
-document.getElementById("table").querySelector("tbody").append(tr);
+        document.getElementById("table").querySelector("tbody").append(tr);
 
-    }
-  } catch (e) {
-    $alerta.setHTML(
-        
-      '<div id="alertOK" class="alert alert-danger  fade show"role="alert">' +
+      }
+    } catch (e) {
+      $alerta.setHTML(
+
+        '<div id="alertOK" class="alert alert-danger  fade show"role="alert">' +
         "El proceso de creación de la tarea ha fallado, consulte con el administrador del sistema."
-    );
-  }
-};
+      );
+    }
+  };
 
 }
 
