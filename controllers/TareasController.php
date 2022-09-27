@@ -1,5 +1,6 @@
 <?php
 include_once "models/Tarea.php";
+include_once "utils/defaults.php";
 
 class TareasController
 {   

@@ -2,13 +2,14 @@
 
 class DB extends PDO{
 
+    /*
     public function __construct(){
         $con ="mysql:host=localhost;dbname=mvc";
         parent::__construct($con,"root", "");
         //le pasamos los parametros: conexion, usuario y contraseña.
     }
-    
-/*
+    */
+
    
     public function __construct(){
         $con ="mysql:host=bbdd.olgacei.com;dbname=ddb192481";
@@ -20,5 +21,5 @@ class DB extends PDO{
     }    
         //le pasamos los parametros: conexion, usuario y contraseña.
     }
-    */
+    
 }

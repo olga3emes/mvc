@@ -54,11 +54,11 @@ function crearModalBorrado(identificador) {
       if (respuesta) {
 
         const response = `Tarea ${id} borrada`;
-        $alerta.setHTML(
+        $alerta.innerHTML=
           '<div id="alertOK" class="alert alert-success fade show"role="alert">' +
           response +
           ""
-        );
+        ;
 
         //Cerrar el modal
         myModalBorrar.hide();
@@ -71,11 +71,11 @@ function crearModalBorrado(identificador) {
 
       }
     } catch (e) {
-      $alerta.setHTML(
+      $alerta.innerHTML=
 
         '<div id="alertOK" class="alert alert-danger  fade show"role="alert">' +
         "El proceso de creación de la tarea ha fallado, consulte con el administrador del sistema."
-      );
+      ;
     }
   };
 }

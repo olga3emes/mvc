@@ -1,8 +1,5 @@
 function crearModalEdicion(identificador) {
 
-    
-
-    
     let tdnombre =`tdnombre${identificador}`;
     let tdfecha =`tdfecha${identificador}`;
     
@@ -84,11 +81,10 @@ function crearModalEdicion(identificador) {
             if (respuesta) {
 
                 const response = `Tarea ${id} modificada`;
-                $alerta.setHTML(
+                $alerta.innerHTML=
                     '<div id="alertOK" class="alert alert-success fade show"role="alert">' +
                     response +
-                    ""
-                );
+                    "";
 
                 //Cerrar el modal
                 myModalEditar.hide();
@@ -103,11 +99,11 @@ function crearModalEdicion(identificador) {
 
             }
         } catch (e) {
-            $alerta.setHTML(
+            $alerta.innerHTML=
 
                 '<div id="alertOK" class="alert alert-danger  fade show"role="alert">' +
                 "El proceso de modificación de la tarea ha fallado, consulte con el administrador del sistema."
-            );
+            ;
         }
 
     };

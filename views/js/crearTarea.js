@@ -74,11 +74,11 @@ function crearModalCrear() {
         myModalCrear.hide();
         modalCrear.remove();
         const response = `La tarea ${respuesta.id} se ha creado con éxito`;
-        $alerta.setHTML(
+        $alerta.innerHTML=
           '<div id="alertOK" class="alert alert-success fade show"role="alert">' +
           response +
           ""
-        );
+        ;
 
         //Hay que crear la fila en la tabla
         let tr = document.createElement("tr");
@@ -100,10 +100,10 @@ function crearModalCrear() {
 
       }
     } catch (e) {
-      $alerta.setHTML(
+      $alerta.innerHTML=
         '<div id="alertOK" class="alert alert-danger  fade show"role="alert">' +
         "El proceso de creación de la tarea ha fallado, consulte con el administrador del sistema."
-      );
+      ;
     }
   };
 

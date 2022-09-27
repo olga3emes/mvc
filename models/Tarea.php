@@ -1,4 +1,5 @@
 <?php
+include_once ("DB.php");
 class Tarea extends DB
 {
     //Atributos de la clase
