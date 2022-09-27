@@ -2,7 +2,7 @@ function crearModalBorrado(identificador) {
   
   let modalBorrar = document.createElement('div');
   modalBorrar.innerHTML =
-    `<div class="modal" id="eliminarTarea" tabindex="-1" data-backdrop="false">
+    `<div class="modal" id="eliminarTarea" tabindex="-1" data-backdrop="false" data-dismiss="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

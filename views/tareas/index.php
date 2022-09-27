@@ -46,23 +46,23 @@
                     <tbody id="bodyTabla">
                         <?php foreach ($tareas as $t): ?>
                         <tr id="tr<?php echo $t->id; ?>" class="">
-                            <td>
+                            <td id="td<?php echo $t->id; ?>">
                                 <?php echo $t->id; ?>
                             </td>
-                            <td>
+                            <td id="tdnombre<?php echo $t->id; ?>">
                                 <?php echo $t->nombre; ?>
                             </td>
-                            <td>
+                            <td id="tdfecha<?php echo $t->id; ?>">
                                 <?php echo date_format(date_create($t->fecha), "d/m/Y"); ?>
                             </td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <button type="button" class="btn btn-light btn-sm"><i
                                             class="bi bi-eye-fill"></i></button>
-                                    <button type="button" onclick='crearModalEdicion("<?php echo $t->id; ?>")' data-bs-toggle="modal" data-bs-target="#editarTarea"  class="btn btn-secondary btn-sm"><i
-                                            class="bi bi-pencil-fill"></i></button>
+                                    <button type="button" onclick='crearModalEdicion("<?php echo $t->id; ?>")' data-bs-toggle="modal" data-bs-target="#editarTarea"  class="btn btn-secondary btn-sm" ><i
+                                            class="bi bi-pencil-fill" data-dismiss="modal" data-backdrop="false"></i></button>
                                     <button type="button" onclick='crearModalBorrado("<?php echo $t->id; ?>")' data-bs-toggle="modal" data-bs-target="#eliminarTarea" class="btn btn-dark btn-sm"><i
-                                            class="bi bi-trash3-fill"></i></button>
+                                            class="bi bi-trash3-fill" data-dismiss="modal" data-backdrop="false"></i></button>
                                 </div>
                             </td>
                         </tr>

@@ -1,12 +1,15 @@
 function crearModalCrear() {
+  if(document.getElementById("#crearTarea")){
+    document.getElementById("#crearTarea").remove();
+  }
   let modalCrear = document.createElement('div');
   modalCrear.innerHTML =
-    `<div class="modal" id="crearTarea" tabindex="-1" data-backdrop="false"> 
+    `<div class="modal" id="crearTarea" tabindex="-1" data-backdrop="false" data-dismiss="modal"> 
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title">Crear Tarea</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-backdrop="false"></button>
           </div>
           <div class="modal-body">
               <form id="formGuardar">
@@ -32,6 +35,9 @@ function crearModalCrear() {
   </div>
 </div>`;
 
+
+ 
+
   document.querySelector('#mdCrear').append(modalCrear);
   const myModalCrear = new bootstrap.Modal('#crearTarea');
   myModalCrear.show()
@@ -44,6 +50,7 @@ function crearModalCrear() {
   $alerta = document.querySelector("#alerta");
 
   $btnGuardar.onclick = async () => {
+    
     const nombre = $nombre.value,
       fecha = new Date($fecha.value).toISOString().slice(0, 10);
 
@@ -77,9 +84,9 @@ function crearModalCrear() {
         let tr = document.createElement("tr");
         tr.id = `tr${respuesta.id}`;
         tr.setAttribute("data-id", respuesta.id);
-        tr.innerHTML = `<td>${respuesta.id}</td>
-                  <td>${respuesta.nombre}</td>
-                  <td>${new Date(respuesta.fecha).toLocaleDateString("es-Es")}</td>
+        tr.innerHTML = `<td id="td${respuesta.id}">${respuesta.id}</td>
+                  <td id="tdnombre${respuesta.id}" >${respuesta.nombre}</td>
+                  <td id="tdfecha${respuesta.id}">${(respuesta.fecha).slice(8, 10) + "/" + (respuesta.fecha).slice(5, 7) + "/" + (respuesta.fecha).slice(0, 4)}</td>
                   <td><div class="btn-group" role="group" aria-label="Basic mixed styles example">
                   <button type="button" class="btn btn-light btn-sm"><i
                           class="bi bi-eye-fill"></i></button>
@@ -94,7 +101,6 @@ function crearModalCrear() {
       }
     } catch (e) {
       $alerta.setHTML(
-
         '<div id="alertOK" class="alert alert-danger  fade show"role="alert">' +
         "El proceso de creación de la tarea ha fallado, consulte con el administrador del sistema."
       );

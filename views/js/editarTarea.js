@@ -2,16 +2,18 @@ function crearModalEdicion(identificador) {
 
     
 
-    let treditar = `tr${identificador}`;
-    $fila = document.getElementById(treditar);
-    const nombreOld = $fila.childNodes[3].innerText;
-    const $fechaCambiar = $fila.childNodes[5].innerText;
+    
+    let tdnombre =`tdnombre${identificador}`;
+    let tdfecha =`tdfecha${identificador}`;
+    
+    const nombreOld = document.getElementById(tdnombre).innerText ;
+    const $fechaCambiar = document.getElementById(tdfecha).innerText ;
     const fechaOld = $fechaCambiar.slice(6, 10) + "-" + $fechaCambiar.slice(3, 5) + "-" + $fechaCambiar.slice(0, 2);
 
 
     let modalEditar = document.createElement('div');
     modalEditar.innerHTML =
-        `<div class="modal" id="editarTarea" tabindex="-1" data-backdrop="false">
+        `<div class="modal" id="editarTarea" tabindex="-1" data-backdrop="false" data-dismiss="modal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -93,11 +95,10 @@ function crearModalEdicion(identificador) {
                 modalEditar.remove();
 
                 // Modificar la fila
-                let treditar = `tr${id}`;
-                $fila = document.getElementById(treditar);
-                $fila.childNodes[3].innerText = respuesta.nombre;
-                console.log(respuesta.fecha);
-                $fila.childNodes[5].innerText = (respuesta.fecha).slice(8, 10) + "/" + (respuesta.fecha).slice(5, 7) + "/" + (respuesta.fecha).slice(0, 4);
+                let tdnombre =`tdnombre${id}`;
+                let tdfecha =`tdfecha${id}`;
+                document.getElementById(tdnombre).innerText = respuesta.nombre;
+                document.getElementById(tdfecha).innerText = (respuesta.fecha).slice(8, 10) + "/" + (respuesta.fecha).slice(5, 7) + "/" + (respuesta.fecha).slice(0, 4);
 
 
             }
